@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu RA - Posicionamento na Parede</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* Menu Inicial */
+        #menu-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: linear-gradient(135deg, #1e1e2f 0%, #111119 100%);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00f2fe;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #aaa;
+            max-width: 400px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #0072ff, #00f2fe);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6);
+        }
+
+        /* Container do Model Viewer (escondido inicialmente) */
+        #ar-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: relative;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background-color: #222;
+        }
+
+        /* Botão para voltar ao menu */
+        #btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu-container">
+        <h1>Experiência em RA</h1>
+        <p>Identifique uma parede vertical no seu ambiente para posicionar e interagir com o modelo 3D animado.</p>
+        <button class="btn-primary" onclick="startAR()">Iniciar Experiência</button>
+    </div>
+
+    <div id="ar-container">
+        <button id="btn-back" onclick="stopAR()">← Voltar</button>
+
+        <model-viewer 
+            id="dimension-demo"
+            src="SEU_MODELO.glb" 
+            ios-src="SEU_MODELO.usdz"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            ar-placement="wall"
+            autoplay
+            camera-controls
+            touch-action="none"
+            alt="Um modelo 3D animado para parede">
+            
+            <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; bottom: 16px; right: 16px; padding: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.25);">
+                👋 Ativar RA no Ambiente
+            </button>
+        </model-viewer>
+    </div>
+
+    <script>
+        const menu = document.getElementById('menu-container');
+        const arContainer = document.getElementById('ar-container');
+        const modelViewer = document.getElementById('dimension-demo');
+
+        function startAR() {
+            menu.style.display = 'none';
+            arContainer.style.display = 'block';
+            
+            // Força o model-viewer a recalcular o tamanho ao se tornar visível
+            modelViewer.getBoundingClientRect();
+        }
+
+        function stopAR() {
+            arContainer.style.display = 'none';
+            menu.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
