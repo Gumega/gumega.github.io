@@ -1,1 +1,0 @@
-# gumega.github.io
