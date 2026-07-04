@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu RA - Posicionamento na Parede</title>
     
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 
     <style>
         * {
@@ -114,9 +114,10 @@
 
         <model-viewer 
             id="dimension-demo"
-            src="SEU_MODELO.glb" 
+            src="shared-assets/models/NeilArmstrong.glb" 
             ios-src="SEU_MODELO.usdz"
             ar
+            environment-image="shared-assets/environments/moon_1k.hdr"
             ar-modes="webxr scene-viewer quick-look"
             ar-placement="wall"
             autoplay
@@ -148,5 +149,21 @@
             menu.style.display = 'flex';
         }
     </script>
+    <script>
+    const viewer = document.querySelector('#dimension-demo');
+
+    // Monitora mudanças de status da RA
+    viewer.addEventListener('ar-status', (event) => {
+        console.log("Status da RA:", event.detail.status);
+        if (event.detail.status === 'failed') {
+            alert("A RA falhou. Erro: " + event.detail.error);
+        }
+    });
+
+    // Monitora se houve erro no carregamento do arquivo 3D
+    viewer.addEventListener('error', (event) => {
+        alert("Erro ao carregar o modelo 3D: " + event.detail.type);
+    });
+</script>
 </body>
 </html>
