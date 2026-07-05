@@ -111,14 +111,14 @@
 
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
         <model-viewer 
-            alt="Neil Armstrong's Spacesuit" 
-            src="Astronaut-Unlit.glb"
+            id="dimension-demo"
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
             ar
             ar-modes="webxr scene-viewer quick-look"
-            ar-placement="wall">
-            <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; bottom: 16px; right: 16px; padding: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.25);">
-                👋 Ativar RA no Ambiente
-            </button>
+            ar-placement="wall"
+            autoplay
+            camera-controls
+            alt="Testando Astronauta da Google">
         </model-viewer>
     </div>
 
