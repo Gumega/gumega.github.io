@@ -147,20 +147,47 @@
         }
     </script>
     <script>
-    const viewer = document.querySelector('#dimension-demo');
+        const viewer = document.querySelector('#dimension-demo');
 
-    // Monitora mudanças de status da RA
-    viewer.addEventListener('ar-status', (event) => {
-        console.log("Status da RA:", event.detail.status);
-        if (event.detail.status === 'failed') {
-            alert("A RA falhou. Erro: " + event.detail.error);
-        }
-    });
+        // Monitora mudanças de status da RA
+        viewer.addEventListener('ar-status', (event) => {
+            console.log("Status da RA:", event.detail.status);
+            if (event.detail.status === 'failed') {
+                alert("A RA falhou. Erro: " + event.detail.error);
+            }
+        });
 
-    // Monitora se houve erro no carregamento do arquivo 3D
-    viewer.addEventListener('error', (event) => {
-        alert("Erro ao carregar o modelo 3D: " + event.detail.type);
-    });
-</script>
+        // Monitora se houve erro no carregamento do arquivo 3D
+        viewer.addEventListener('error', (event) => {
+            alert("Erro ao carregar o modelo 3D: " + event.detail.type);
+        });
+    </script>
+    <script>
+        const viewer = document.querySelector('#dimension-demo');
+
+        // Escuta quando a RA é ativada ou desativada
+        viewer.addEventListener('ar-status', (event) => {
+            const { status } = event.detail;
+
+            if (status === 'session-started') {
+                console.log("Sessão RA iniciada. Bloqueando interações manuais.");
+            
+                // Força o bloqueio de rotação e redimensionamento, 
+                // permitindo apenas a movimentação pelo cenário.
+                viewer.interactions = "none"; 
+
+            } else if (status === 'not-presenting' || status === 'session-ended') {
+                console.log("Sessão RA encerrada. Reativando interações.");
+            
+                // Reativa o controle da câmera para a visualização 2D
+                viewer.interactions = "auto";
+            }
+        });
+
+        // Se houver falha na entrada em RA
+        viewer.addEventListener('ar-error', (event) => {
+            alert("A RA falhou: " + event.detail.error);
+        });
+    </script>
 </body>
 </html>
