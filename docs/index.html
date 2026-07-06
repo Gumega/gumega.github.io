@@ -112,12 +112,17 @@
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
         <model-viewer 
             id="dimension-demo"
-            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
             ar
             ar-modes="webxr scene-viewer quick-look"
             ar-placement="wall"
-            autoplay
+            ar-scale="fixed"
+            orientation="0deg 180deg 0deg"
             camera-controls
+            disable-pan
+            touch-action="none"
+            disable-zoom
+            autoplay
             alt="Testando Astronauta da Google">
         </model-viewer>
     </div>
